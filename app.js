@@ -238,7 +238,9 @@
     calibValue.value = '';
     calibUnit.value = unit;
     calibDialog.hidden = false;
-    setTimeout(() => calibValue.focus(), 50);
+    // iOS Safariでは、ユーザー操作から遅れてfocus()を呼ぶとキーボードが
+    // 表示されない「フォーカス済みなのに反応しない」状態になることがあるため、
+    // 自動フォーカスはせずユーザー自身のタップに任せる
   }
 
   function closeCalibDialog() {
