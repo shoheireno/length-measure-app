@@ -2,6 +2,14 @@
   box-sizing: border-box;
 }
 
+/* [hidden]属性はブラウザのデフォルトでdisplay:noneになるが、同じ要素に
+   display:flex等を指定するクラス（.measure-view, .fab, .dialog-overlay等）が
+   あると、CSSの詳細度が同点のため後勝ちでdisplay指定が[hidden]を上書きしてしまう。
+   常にhiddenを最優先させるため、!importantで明示的に上書きする。 */
+[hidden] {
+  display: none !important;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

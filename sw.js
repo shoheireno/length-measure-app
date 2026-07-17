@@ -1,4 +1,4 @@
-const CACHE_NAME = 'length-measure-v5';
+const CACHE_NAME = 'length-measure-v6';
 const ASSETS = [
   './',
   './index.html',
