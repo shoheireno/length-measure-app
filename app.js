@@ -21,6 +21,7 @@
   const calibDialog = document.getElementById('calibDialog');
   const calibValue = document.getElementById('calibValue');
   const calibUnit = document.getElementById('calibUnit');
+  const calibError = document.getElementById('calibError');
   const calibCancel = document.getElementById('calibCancel');
   const calibOk = document.getElementById('calibOk');
 
@@ -237,6 +238,7 @@
   function openCalibDialog() {
     calibValue.value = '';
     calibUnit.value = unit;
+    calibError.hidden = true;
     calibDialog.hidden = false;
     // iOS Safariでは、ユーザー操作から遅れてfocus()を呼ぶとキーボードが
     // 表示されない「フォーカス済みなのに反応しない」状態になることがあるため、
@@ -256,8 +258,17 @@
   });
 
   calibOk.addEventListener('click', () => {
+    if (!pendingCalibPoints) {
+      closeCalibDialog();
+      return;
+    }
+
     const value = parseFloat(calibValue.value);
-    if (!value || value <= 0 || !pendingCalibPoints) return;
+    if (!Number.isFinite(value) || value <= 0) {
+      calibError.textContent = '0より大きい数値を入力してください';
+      calibError.hidden = false;
+      return;
+    }
 
     unit = calibUnit.value;
     calibP1 = pendingCalibPoints.p1;

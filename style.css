@@ -226,9 +226,11 @@ body {
   left: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 20px;
+  padding-top: 15vh;
+  overflow-y: auto;
   z-index: 100;
 }
 
@@ -272,6 +274,12 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   background: white;
+}
+
+.dialog-error {
+  margin: -8px 0 16px;
+  font-size: 13px;
+  color: #d32f2f;
 }
 
 .dialog-actions {
