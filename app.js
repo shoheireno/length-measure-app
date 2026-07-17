@@ -93,10 +93,7 @@
   // iOSのSafariでは <label> 経由での隠しinputクリックが伝わらないことがあるため、
   // ボタンのタップから明示的に input.click() を呼ぶ
   cameraBtn.addEventListener('click', () => cameraInput.click());
-  galleryBtn.addEventListener('click', () => {
-    alert('診断: ボタンのタップを検知しました。次に写真選択が開きます。');
-    galleryInput.click();
-  });
+  galleryBtn.addEventListener('click', () => galleryInput.click());
   changePhotoFab.addEventListener('click', () => changePhotoInput.click());
 
   // ---- 描画 ----
@@ -238,11 +235,30 @@
 
   // ---- 校正ダイアログ ----
 
+  // iOS Safariはキーボード表示中、実際に見えている範囲(visual viewport)と
+  // レイアウト上の範囲がズレることがあり、position:fixedの要素は見た目通りの
+  // 位置にタップ判定が付いてこないことがある。visualViewportの実測値に
+  // ダイアログの位置・高さを追従させて、ズレを解消する。
+  function syncDialogToViewport() {
+    if (!window.visualViewport || calibDialog.hidden) return;
+    const vv = window.visualViewport;
+    calibDialog.style.top = vv.offsetTop + 'px';
+    calibDialog.style.left = vv.offsetLeft + 'px';
+    calibDialog.style.width = vv.width + 'px';
+    calibDialog.style.height = vv.height + 'px';
+  }
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncDialogToViewport);
+    window.visualViewport.addEventListener('scroll', syncDialogToViewport);
+  }
+
   function openCalibDialog() {
     calibValue.value = '';
     calibUnit.value = unit;
     calibError.hidden = true;
     calibDialog.hidden = false;
+    syncDialogToViewport();
     // iOS Safariでは、ユーザー操作から遅れてfocus()を呼ぶとキーボードが
     // 表示されない「フォーカス済みなのに反応しない」状態になることがあるため、
     // 自動フォーカスはせずユーザー自身のタップに任せる
