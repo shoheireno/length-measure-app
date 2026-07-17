@@ -12,6 +12,8 @@
   const resetBtn = document.getElementById('resetBtn');
   const changePhotoFab = document.getElementById('changePhotoFab');
 
+  const cameraBtn = document.getElementById('cameraBtn');
+  const galleryBtn = document.getElementById('galleryBtn');
   const cameraInput = document.getElementById('cameraInput');
   const galleryInput = document.getElementById('galleryInput');
   const changePhotoInput = document.getElementById('changePhotoInput');
@@ -86,6 +88,12 @@
       input.value = '';
     });
   });
+
+  // iOSのSafariでは <label> 経由での隠しinputクリックが伝わらないことがあるため、
+  // ボタンのタップから明示的に input.click() を呼ぶ
+  cameraBtn.addEventListener('click', () => cameraInput.click());
+  galleryBtn.addEventListener('click', () => galleryInput.click());
+  changePhotoFab.addEventListener('click', () => changePhotoInput.click());
 
   // ---- 描画 ----
 

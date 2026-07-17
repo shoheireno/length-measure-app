@@ -29,14 +29,10 @@
 <main id="emptyState" class="empty-state">
   <div class="empty-icon">📏</div>
   <p>写真を選んで長さを測定しましょう</p>
-  <label class="btn btn-primary">
-    📷 写真を撮る
-    <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden>
-  </label>
-  <label class="btn btn-outline">
-    🖼️ ギャラリーから選ぶ
-    <input id="galleryInput" type="file" accept="image/*" hidden>
-  </label>
+  <button type="button" id="cameraBtn" class="btn btn-primary">📷 写真を撮る</button>
+  <button type="button" id="galleryBtn" class="btn btn-outline">🖼️ ギャラリーから選ぶ</button>
+  <input id="cameraInput" type="file" accept="image/*" capture="environment" class="visually-hidden">
+  <input id="galleryInput" type="file" accept="image/*" class="visually-hidden">
 </main>
 
 <main id="measureView" class="measure-view" hidden>
@@ -49,10 +45,8 @@
   <div id="measurementList" class="measurement-list" hidden></div>
 </main>
 
-<label id="changePhotoFab" class="fab" hidden>
-  📷
-  <input id="changePhotoInput" type="file" accept="image/*" hidden>
-</label>
+<button type="button" id="changePhotoFab" class="fab" hidden>📷</button>
+<input id="changePhotoInput" type="file" accept="image/*" class="visually-hidden">
 
 <!-- 校正（基準の長さ入力）ダイアログ -->
 <div id="calibDialog" class="dialog-overlay" hidden>
