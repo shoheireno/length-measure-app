@@ -93,7 +93,10 @@
   // iOSのSafariでは <label> 経由での隠しinputクリックが伝わらないことがあるため、
   // ボタンのタップから明示的に input.click() を呼ぶ
   cameraBtn.addEventListener('click', () => cameraInput.click());
-  galleryBtn.addEventListener('click', () => galleryInput.click());
+  galleryBtn.addEventListener('click', () => {
+    alert('診断: ボタンのタップを検知しました。次に写真選択が開きます。');
+    galleryInput.click();
+  });
   changePhotoFab.addEventListener('click', () => changePhotoInput.click());
 
   // ---- 描画 ----
